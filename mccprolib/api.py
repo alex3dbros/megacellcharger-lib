@@ -62,6 +62,10 @@ class MegacellCharger:
         result = self.set_data(config, "api/set_chemistry")
         return result
 
+    def get_cell_chemistry(self, data):
+        result = self.set_data(data, "api/get_chemistry")
+        return result
+
     def get_data(self, data, api_addr):
         req_uri = "http://" + self.ip + "/" + api_addr
         req = requests.post(req_uri, data=json.dumps(data), headers=self.headers)
@@ -72,6 +76,11 @@ class MegacellCharger:
         req = requests.post(req_uri, data=json.dumps(data), headers=self.headers)
         return req.content
 
+    def get_device_type(self):
+        data = {}
+        result = self.get_data(data, "api/who_am_i")
+
+        return result
 
     @staticmethod
     def send_data_api(address, api_addr, data):
